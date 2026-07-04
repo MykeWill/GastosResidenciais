@@ -1,6 +1,10 @@
 @GastoResidencial_HostAddress = http://localhost:5192
 
-GET {{GastoResidencial_HostAddress}}/weatherforecast/
-Accept: application/json
+### Cadastrar uma pessoa
+POST {{GastoResidencial_HostAddress}}/api/pessoas
+Content-Type: application/json
 
-###
+{
+    "nome": "Mykao",
+    "idade": 22
+}
