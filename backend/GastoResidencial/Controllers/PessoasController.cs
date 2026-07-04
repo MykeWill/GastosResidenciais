@@ -1,6 +1,7 @@
 using GastoResidencial.Data;
 using GastoResidencial.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GastoResidencial.Controllers;
 
@@ -30,5 +31,15 @@ public class PessoasController : ControllerBase
             new { id = pessoa.Id },
             pessoa
         );
+    }
+
+    /// <summary>
+    /// Lista todas as pessoas cadastradas.
+    /// </summary>
+    [HttpGet]
+    public async Task<IActionResult> ListarPessoas()
+    {
+        var pessoas = await _context.Pessoas.ToListAsync();
+        return Ok(pessoas);
     }
 }
