@@ -18,4 +18,5 @@ public class AppDbContext : DbContext
     /// Representa a tabela de pessoas no banco de dados.
     /// </summary>
     public DbSet<Pessoa> Pessoas { get; set; }
+    public DbSet<Transacao> Transacoes { get; set; }
 }

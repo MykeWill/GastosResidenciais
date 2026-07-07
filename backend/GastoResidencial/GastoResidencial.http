@@ -1,10 +1,47 @@
 @GastoResidencial_HostAddress = http://localhost:5192
 
-### Cadastrar uma pessoa
+### Cadastrar pessoa maior de idade
 POST {{GastoResidencial_HostAddress}}/api/pessoas
 Content-Type: application/json
 
 {
-    "nome": "Mykao",
-    "idade": 22
+  "nome": "Marabô",
+  "idade": 200
+}
+
+### Busca os usuários
+GET {{GastoResidencial_HostAddress}}/api/pessoas
+
+
+//Anotar o id retornado.
+### Cadastrar pessoa menor de idade
+POST {{GastoResidencial_HostAddress}}/api/pessoas
+Content-Type: application/json
+
+{
+  "nome": "João",
+  "idade": 15
+}
+
+### Despesa permitida
+POST {{GastoResidencial_HostAddress}}/api/transacoes
+Content-Type: application/json
+
+{
+  "descricao": "Material escolar",
+  "valor": 120,
+  "tipo": 0,
+  "pessoaId": 3
+}
+
+// deve falhar
+### Receita proibida
+POST {{GastoResidencial_HostAddress}}/api/transacoes
+Content-Type: application/json
+
+{
+  "descricao": "Salário",
+  "valor": 5000,
+  "tipo": 1,
+  "pessoaId": 3
 }

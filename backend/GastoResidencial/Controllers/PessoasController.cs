@@ -1,7 +1,6 @@
-using GastoResidencial.Data;
-using GastoResidencial.Models;
+using GastoResidencial.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using GastoResidencial.DTOs.Pessoa;
 
 namespace GastoResidencial.Controllers;
 
@@ -9,28 +8,22 @@ namespace GastoResidencial.Controllers;
 [Route("api/[controller]")]
 public class PessoasController : ControllerBase
 {
-    private readonly AppDbContext _context;
+    private readonly IPessoaService _pessoaService;
 
-    public PessoasController(AppDbContext context)
+    public PessoasController(IPessoaService pessoaService)
     {
-        _context = context;
+        _pessoaService = pessoaService;
     }
 
     /// <summary>
     /// Cadastra uma nova pessoa.
     /// </summary>
     [HttpPost]
-    public async Task<IActionResult> CriarPessoa(Pessoa pessoa)
+    public async Task<IActionResult> CriarPessoa(PessoaRequestDto dto)
     {
-        _context.Pessoas.Add(pessoa);
+        var pessoa = await _pessoaService.CriarPessoaAsync(dto);
 
-        await _context.SaveChangesAsync();
-
-        return CreatedAtAction(
-            nameof(CriarPessoa),
-            new { id = pessoa.Id },
-            pessoa
-        );
+        return CreatedAtAction(nameof(ListarPessoas), new { id = pessoa.Id }, pessoa);
     }
 
     /// <summary>
@@ -39,7 +32,6 @@ public class PessoasController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> ListarPessoas()
     {
-        var pessoas = await _context.Pessoas.ToListAsync();
-        return Ok(pessoas);
+        return Ok(await _pessoaService.ListarPessoasAsync());
     }
 }

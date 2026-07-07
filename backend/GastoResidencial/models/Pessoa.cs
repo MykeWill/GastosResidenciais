@@ -20,4 +20,9 @@ public class Pessoa
     /// Idade da pessoa.
     /// </summary>
     public int Idade { get; set; }
+
+    /// <summary>
+    /// Lista de transações associadas à pessoa.
+    /// </summary>
+    public ICollection<Transacao> Transacoes { get; set; } = new List<Transacao>();
 }

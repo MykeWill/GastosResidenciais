@@ -1,0 +1,50 @@
+using GastoResidencial.Data;
+using GastoResidencial.Interfaces;
+using GastoResidencial.Models;
+using Microsoft.EntityFrameworkCore;
+using GastoResidencial.DTOs.Pessoa;
+using GastoResidencial.Mappings;
+
+namespace GastoResidencial.Services;
+
+/// <summary>
+/// Implementa as regras de negócio relacionadas às pessoas.
+/// </summary>
+public class PessoaService : IPessoaService
+{
+    private readonly AppDbContext _context;
+
+    public PessoaService(AppDbContext context)
+    {
+        _context = context;
+    }
+
+    public async Task<Pessoa> CriarPessoaAsync(Pessoa pessoa)
+    {
+        _context.Pessoas.Add(pessoa);
+        await _context.SaveChangesAsync();
+
+        return pessoa;
+    }
+
+    public async Task<PessoaResponseDto> CriarPessoaAsync(PessoaRequestDto dto)
+    {
+        var pessoa = PessoaMapping.ToEntity(dto);
+
+        _context.Pessoas.Add(pessoa);
+
+        await _context.SaveChangesAsync();
+
+        return PessoaMapping.ToResponseDto(pessoa);
+    }
+
+    public async Task<List<PessoaResponseDto>> ListarPessoasAsync()
+    {
+        var pessoas = await _context.Pessoas.ToListAsync();
+
+        return pessoas
+            .Select(PessoaMapping.ToResponseDto)
+            .ToList();
+    }
+
+}
