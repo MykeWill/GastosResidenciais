@@ -32,4 +32,13 @@ public static class PessoaMapping
             Idade = pessoa.Idade
         };
     }
+
+    /// <summary>
+    /// Atualiza uma entidade Pessoa com os dados do DTO.
+    /// </summary>
+    public static void AtualizarEntity(Pessoa pessoa, PessoaRequestDto dto)
+    {
+        pessoa.Nome = dto.Nome;
+        pessoa.Idade = dto.Idade;
+    }
 }

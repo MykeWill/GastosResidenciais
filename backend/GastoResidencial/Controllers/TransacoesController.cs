@@ -37,4 +37,43 @@ public class TransacoesController : ControllerBase
     {
         return Ok(await _transacaoService.ListarTransacoesAsync());
     }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> BuscarPorId(int id)
+    {
+        var transacao = await _transacaoService.BuscarPorIdAsync(id);
+
+        if (transacao == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(transacao);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> AtualizarTransacao(int id, TransacaoRequestDto dto)
+    {
+        var transacao = await _transacaoService.AtualizarTransacaoAsync(id, dto);
+
+        if (transacao == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(transacao);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> ExcluirTransacao(int id) 
+    {
+        var excluiu = await _transacaoService.ExcluirTransacaoAsync(id);
+
+        if (!excluiu)
+        {
+            return NotFound();
+        }
+
+        return NoContent();
+    }
 }

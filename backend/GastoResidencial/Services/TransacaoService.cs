@@ -50,5 +50,64 @@ public class TransacaoService : ITransacaoService
         return transacoes
             .Select(TransacaoMapping.ToResponseDto)
             .ToList();
+    }
+
+
+    public async Task<TransacaoResponseDto?> BuscarPorIdAsync(int id)
+    {
+        var transacao = await _context.Transacoes.FindAsync(id);
+
+        if (transacao == null)
+        {
+            return null;
+        }
+
+        return TransacaoMapping.ToResponseDto(transacao);
     }   
+
+    public async Task<TransacaoResponseDto?> AtualizarTransacaoAsync(int id, TransacaoRequestDto dto)
+    {
+        var transacao = await _context.Transacoes.FindAsync(id);
+
+        if (transacao == null)
+        {
+            return null;
+        }
+
+        var pessoa = await _context.Pessoas.FindAsync(dto.PessoaId);
+
+        if (pessoa == null)
+        {
+            throw new Exception("A pessoa informada não foi encontrada.");
+        }
+
+        if (pessoa.Idade < 18 &&
+            dto.Tipo == TipoTransacao.Receita)
+        {
+            throw new Exception("Pessoas menores de idade só podem cadastrar despesas.");
+        }
+
+        TransacaoMapping.AtualizarEntity(transacao, dto);
+
+        await _context.SaveChangesAsync();
+
+        return TransacaoMapping.ToResponseDto(transacao);
+    }
+
+
+    public async Task<bool> ExcluirTransacaoAsync(int id)
+    {
+        var transacao = await _context.Transacoes.FindAsync(id);
+
+        if (transacao == null)
+        {
+            return false;
+        }
+
+        _context.Transacoes.Remove(transacao);
+
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
 }

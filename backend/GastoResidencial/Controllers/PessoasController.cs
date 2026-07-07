@@ -14,7 +14,20 @@ public class PessoasController : ControllerBase
     {
         _pessoaService = pessoaService;
     }
+    
+    //Exclui uma pessoa e todas as suas transações
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> ExcluirPessoa(int id)
+    {
+        var excluiu = await _pessoaService.ExcluirPessoaAsync(id);
 
+        if (!excluiu)
+        {
+            return NotFound();
+        }
+
+        return NoContent();
+    }
     /// <summary>
     /// Cadastra uma nova pessoa.
     /// </summary>
@@ -34,4 +47,30 @@ public class PessoasController : ControllerBase
     {
         return Ok(await _pessoaService.ListarPessoasAsync());
     }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> BuscarPorId(int id)
+    {
+        var pessoa = await _pessoaService.BuscarPorIdAsync(id);
+
+        if (pessoa == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(pessoa);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> AtualizarPessoa(int id, PessoaRequestDto dto)
+    {
+        var pessoa = await _pessoaService.AtualizarPessoaAsync(id, dto);
+
+        if (pessoa == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(pessoa);
+    }   
 }

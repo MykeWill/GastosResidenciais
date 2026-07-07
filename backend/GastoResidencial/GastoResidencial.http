@@ -1,5 +1,20 @@
 @GastoResidencial_HostAddress = http://localhost:5192
 
+
+### Atualiza nome e idade de uma pessoa cadastrada
+PUT {{GastoResidencial_HostAddress}}/api/pessoas/1
+Content-Type: application/json
+
+{
+    "nome": "Roberto Carlos",
+    "idade": 25
+}
+
+
+### Exclui uma pessoa e suas transações
+DELETE {{GastoResidencial_HostAddress}}/api/pessoas/1
+
+
 ### Cadastrar pessoa maior de idade
 POST {{GastoResidencial_HostAddress}}/api/pessoas
 Content-Type: application/json
@@ -9,8 +24,9 @@ Content-Type: application/json
   "idade": 0
 }
 
-### Busca os usuários
-GET {{GastoResidencial_HostAddress}}/api/pessoas
+### Busca os usuários sem o /numeroID
+### Busca os usuários com o /numeroID
+GET {{GastoResidencial_HostAddress}}/api/pessoas/2
 
 
 //Anotar o id retornado.
@@ -45,3 +61,26 @@ Content-Type: application/json
   "tipo": 1,
   "pessoaId": 3
 }
+
+
+//Rotas de Transação
+
+###
+GET {{GastoResidencial_HostAddress}}/api/transacoes/1
+Accept: application/json
+
+###
+PUT {{GastoResidencial_HostAddress}}/api/transacoes/1
+Content-Type: application/json
+
+{
+    "descricao": "Mercado",
+    "valor": 250.50,
+    "tipo": 0,
+    "pessoaId": 2
+}
+
+###
+DELETE {{GastoResidencial_HostAddress}}/api/transacoes/1
+
+###

@@ -47,4 +47,47 @@ public class PessoaService : IPessoaService
             .ToList();
     }
 
+    public async Task<PessoaResponseDto?> BuscarPorIdAsync(int id)
+    {
+        var pessoa = await _context.Pessoas.FindAsync(id);
+
+        if (pessoa == null)
+        {
+            return null;
+        }
+
+        return PessoaMapping.ToResponseDto(pessoa);
+    }
+
+    public async Task<PessoaResponseDto?> AtualizarPessoaAsync(int id, PessoaRequestDto dto)
+    {
+        var pessoa = await _context.Pessoas.FindAsync(id);
+
+        if (pessoa == null)
+        {
+            return null;
+        }
+
+       PessoaMapping.AtualizarEntity(pessoa, dto);
+
+        await _context.SaveChangesAsync();
+
+        return PessoaMapping.ToResponseDto(pessoa);
+    }    
+    public async Task<bool> ExcluirPessoaAsync(int id)
+    {
+        var pessoa = await _context.Pessoas.FindAsync(id);
+
+        if (pessoa == null)
+        {
+            return false;
+        }
+
+        _context.Pessoas.Remove(pessoa);
+
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
+
 }

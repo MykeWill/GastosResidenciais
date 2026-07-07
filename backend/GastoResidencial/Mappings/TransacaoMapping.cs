@@ -36,4 +36,13 @@ public static class TransacaoMapping
             PessoaId = transacao.PessoaId
         };
     }
+
+
+    public static void AtualizarEntity(Transacao transacao, TransacaoRequestDto dto)
+    {
+        transacao.Descricao = dto.Descricao;
+        transacao.Valor = dto.Valor;
+        transacao.Tipo = dto.Tipo;
+        transacao.PessoaId = dto.PessoaId;
+    }
 }
