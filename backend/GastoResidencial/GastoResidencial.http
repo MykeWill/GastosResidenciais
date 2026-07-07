@@ -5,8 +5,8 @@ POST {{GastoResidencial_HostAddress}}/api/pessoas
 Content-Type: application/json
 
 {
-  "nome": "Marabô",
-  "idade": 200
+  "nome": "",
+  "idade": 0
 }
 
 ### Busca os usuários

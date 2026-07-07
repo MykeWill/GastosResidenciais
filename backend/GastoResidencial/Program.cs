@@ -2,6 +2,7 @@ using GastoResidencial.Data;
 using Microsoft.EntityFrameworkCore;
 using GastoResidencial.Interfaces;
 using GastoResidencial.Services;
+using Microsoft.AspNetCore.Mvc;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,23 @@ builder.Services.AddScoped<ITransacaoService, TransacaoService>();
 
 // Adiciona suporte aos Controllers.
 builder.Services.AddControllers();
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.InvalidModelStateResponseFactory = context =>
+    {
+        var erros = context.ModelState
+            .Values
+            .SelectMany(v => v.Errors)
+            .Select(e => e.ErrorMessage)
+            .ToList();
+
+        return new BadRequestObjectResult(new
+        {
+            mensagem = "Dados inválidos.",
+            erros
+        });
+    };
+});
 
 // Configuração do OpenAPI (.NET 10)
 builder.Services.AddOpenApi();
