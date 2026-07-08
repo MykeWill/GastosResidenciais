@@ -16,7 +16,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // automaticamente sua respectiva implementação.
 builder.Services.AddScoped<IPessoaService, PessoaService>();
 builder.Services.AddScoped<ITransacaoService, TransacaoService>();
-
+builder.Services.AddScoped<IRelatorioService, RelatorioService>();
 // Adiciona suporte aos Controllers.
 builder.Services.AddControllers();
 builder.Services.Configure<ApiBehaviorOptions>(options =>

@@ -84,3 +84,9 @@ Content-Type: application/json
 DELETE {{GastoResidencial_HostAddress}}/api/transacoes/1
 
 ###
+
+//Rotas dos relatórios 
+GET {{GastoResidencial_HostAddress}}/api/relatorios/totais
+Accept: application/json
+
+###
