@@ -8,3 +8,6 @@ obj/
 # Arquivos do sistema
 .DS_Store
 Thumbs.db
+
+# Banco de dados
+*.db
