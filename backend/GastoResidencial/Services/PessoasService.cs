@@ -19,14 +19,6 @@ public class PessoaService : IPessoaService
         _context = context;
     }
 
-    public async Task<Pessoa> CriarPessoaAsync(Pessoa pessoa)
-    {
-        _context.Pessoas.Add(pessoa);
-        await _context.SaveChangesAsync();
-
-        return pessoa;
-    }
-
     public async Task<PessoaResponseDto> CriarPessoaAsync(PessoaRequestDto dto)
     {
         var pessoa = PessoaMapping.ToEntity(dto);
@@ -37,7 +29,7 @@ public class PessoaService : IPessoaService
 
         return PessoaMapping.ToResponseDto(pessoa);
     }
-
+    
     public async Task<List<PessoaResponseDto>> ListarPessoasAsync()
     {
         var pessoas = await _context.Pessoas.ToListAsync();
