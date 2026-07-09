@@ -14,6 +14,7 @@ export default function Pessoas() {
   const [idade, setIdade] = useState("");
   const [erro, setErro] = useState("");
   const [editandoId, setEditandoId] = useState<number | null>(null);
+  const [salvando, setSalvando] = useState(false);
 
   useEffect(() => {
     carregarPessoas();
@@ -35,6 +36,7 @@ export default function Pessoas() {
   async function handleSalvar(e: React.SyntheticEvent) {
     e.preventDefault();
     setErro("");
+    setSalvando(true);
     try {
       if (editandoId) {
         await api.put(`/pessoas/${editandoId}`, { nome, idade: Number(idade) });
@@ -48,6 +50,8 @@ export default function Pessoas() {
     } catch (error: any) {
       const mensagens = error.response?.data?.erros;
       setErro(mensagens ? mensagens.join(", ") : "Erro ao salvar pessoa.");
+    } finally {
+      setSalvando(false)
     }
   }
 
@@ -99,7 +103,9 @@ export default function Pessoas() {
           onChange={(e) => setIdade(e.target.value)}
           required
         />
-        <button type="submit">{editandoId ? "Salvar" : "Cadastrar"}</button>
+        <button type="submit" disabled={salvando}>
+            {salvando ? "Salvando..." : editandoId ? "Salvar" : "Cadastrar"}
+          </button>
         {editandoId && (
           <button type="button" onClick={handleCancelar}>Cancelar</button>
         )}
@@ -107,6 +113,9 @@ export default function Pessoas() {
 
       {/* className="erro" aplica o estilo de caixa vermelha definido no App.css */}
       {erro && <p className="erro">{erro}</p>}
+
+      {/*Caso não teha pessoas cadastreas*/}  
+      {pessoas.length === 0 && <p>Nenhuma pessoa cadastrada.</p>}
 
       {/* className="item-lista" aplica o estilo de "card" definido no App.css */}
       {pessoas.map((pessoa) => (

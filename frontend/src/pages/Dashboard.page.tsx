@@ -38,6 +38,7 @@ return (
 
       <div className="dashboard-pessoas">
         <h2>Pessoas</h2>
+        {relatorio.pessoas.length === 0 && <p>Nenhuma pessoa cadastrada ainda.</p>}
         <div className="grid-pessoas">
           {relatorio.pessoas.map((pessoa) => (
           <PessoaCard key={pessoa.id} pessoa={pessoa} />
