@@ -25,25 +25,27 @@ export default function Dashboard() {
     return <h2>Carregando...</h2>;
   }
 
- return (
+return (
   <div>
     <h1>Dashboard</h1>
 
-    <TotaisCard
-      totalReceitas={relatorio.totalReceitas}
-      totalDespesas={relatorio.totalDespesas}
-      saldoLiquido={relatorio.saldoLiquido}
-    />
+    <div className="dashboard-layout">
+      <TotaisCard
+        totalReceitas={relatorio.totalReceitas}
+        totalDespesas={relatorio.totalDespesas}
+        saldoLiquido={relatorio.saldoLiquido}
+      />
 
-    <h2>Pessoas</h2>
-
-    {relatorio.pessoas.map((pessoa) => (
-        <PessoaCard
-            key={pessoa.id}
-            pessoa={pessoa}
-        />
-    ))}
-
+      <div className="dashboard-pessoas">
+        <h2>Pessoas</h2>
+        <div className="grid-pessoas">
+          {relatorio.pessoas.map((pessoa) => (
+          <PessoaCard key={pessoa.id} pessoa={pessoa} />
+          ))}
+       </div>
+      </div>
+      
+    </div>
   </div>
 );
 }

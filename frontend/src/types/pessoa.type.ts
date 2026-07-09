@@ -8,3 +8,10 @@ export interface Pessoa {
   totalDespesas: number;
   saldo: number;
 }
+
+/** Dados cadastrais de uma pessoa. Espelha PessoaResponseDto.cs do backend. */
+export interface PessoaCadastro {
+  id: number;
+  nome: string;
+  idade: number;
+}

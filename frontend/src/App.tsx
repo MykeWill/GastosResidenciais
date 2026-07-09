@@ -3,6 +3,7 @@ import Dashboard from "./pages/Dashboard.page";
 import Pessoas from "./pages/Pessoas.page";
 import Transacoes from "./pages/Transacoes.page";
 import MainLayout from "./layouts/MainLayout";
+import "./App.css";
 
 
 
