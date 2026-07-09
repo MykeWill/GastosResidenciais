@@ -67,7 +67,7 @@ export default function Transacoes() {
       carregarDados();
     } catch (error: any) {
       const mensagens = error.response?.data?.erros;
-      setErro(mensagens ? mensagens.join(", ") : "Erro ao salvar transação.");
+      setErro(mensagens ? mensagens.join(", ") : "Menores de idade não podem ter receitas");
     }finally {
       setSalvando(false)
     }

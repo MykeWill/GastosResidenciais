@@ -1,6 +1,5 @@
 using GastoResidencial.Data;
 using GastoResidencial.Interfaces;
-using GastoResidencial.Models;
 using Microsoft.EntityFrameworkCore;
 using GastoResidencial.Enums;
 using GastoResidencial.DTOs.Transacao;
@@ -32,7 +31,7 @@ public class TransacaoService : ITransacaoService
         }
 
         if (pessoa.Idade < 18 &&
-            transacao.Tipo == Enums.TipoTransacao.Receita)
+            transacao.Tipo == TipoTransacao.Receita)
         {
             throw new Exception("Pessoas menores de idade só podem cadastrar receitas.");
         }
