@@ -13,7 +13,7 @@ export default function TotaisCard({
   saldoLiquido,
 }: TotaisCardProps) {
   return (
-    <section>
+    <section className="totais-gerais">
       <h2>Totais Gerais</h2>
 
       <p>💰 Receitas: R$ {totalReceitas.toFixed(2)}</p>

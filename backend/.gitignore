@@ -11,3 +11,6 @@ Thumbs.db
 
 # Banco de dados
 *.db
+
+*.db-shm
+*.db-wal

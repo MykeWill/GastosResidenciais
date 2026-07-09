@@ -23,6 +23,3 @@ dist-ssr
 *.sln
 *.sw?
 
-#bancos de dados
-*.db-shm
-*.db-wal
