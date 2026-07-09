@@ -22,6 +22,8 @@ export default function Transacoes() {
   const [tipo, setTipo] = useState("0");
   const [pessoaId, setPessoaId] = useState("");
 
+  const [salvando, setSalvando] = useState(false);
+
   useEffect(() => {
     carregarDados();
   }, []);
@@ -46,6 +48,7 @@ export default function Transacoes() {
   async function handleSalvar(e: React.SyntheticEvent) {
     e.preventDefault();
     setErro("");
+    setSalvando(true)
     const dto = {
       descricao,
       valor: Number(valor),
@@ -65,6 +68,8 @@ export default function Transacoes() {
     } catch (error: any) {
       const mensagens = error.response?.data?.erros;
       setErro(mensagens ? mensagens.join(", ") : "Erro ao salvar transação.");
+    }finally {
+      setSalvando(false)
     }
   }
 
@@ -135,7 +140,9 @@ export default function Transacoes() {
             <option key={p.id} value={p.id}>{p.nome}</option>
           ))}
         </select>
-        <button type="submit">{editandoId ? "Salvar" : "Cadastrar"}</button>
+        <button type="submit" disabled={salvando}>
+          {salvando ? "Salvando..." : editandoId ? "Salvar" : "Cadastrar"}
+        </button>
         {editandoId && (
           <button type="button" onClick={handleCancelar}>Cancelar</button>
         )}
@@ -144,6 +151,8 @@ export default function Transacoes() {
       {/* className="erro" aplica o estilo de caixa vermelha definido no App.css */}
       {erro && <p className="erro">{erro}</p>}
 
+      {/*Se não houver transações */}
+      {transacoes.length === 0 && <p>Nenhuma transação cadastrada.</p>}
       {/* Tabela com cabeçalho nomeando cada coluna (Descrição, Valor, Tipo, Pessoa, Ações) */}
       <table className="tabela-transacoes">
         <thead>
@@ -160,7 +169,9 @@ export default function Transacoes() {
             <tr key={t.id}>
               <td>{t.descricao}</td>
               <td>R$ {t.valor.toFixed(2)}</td>
-              <td>{t.tipo === 0 ? "Despesa" : "Receita"}</td>
+              <td className={t.tipo === 0 ? "tipo-despesa" : "tipo-receita"}>
+                  {t.tipo === 0 ? "Despesa" : "Receita"}
+              </td>
               <td>{nomePessoa(t.pessoaId)}</td>
               <td>
                 <button onClick={() => handleEditar(t)}>Editar</button>{" "}

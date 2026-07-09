@@ -35,6 +35,9 @@ h1 { color: #1e1b4b; margin-bottom: 32px; }
 
 .tabela-transacoes th { color: #9ca3af; font-size: 13px; text-transform: uppercase; }
 
+.tipo-despesa { color: var(--danger); font-weight: 600; }
+.tipo-receita { color: #4ade80; font-weight: 600; }
+
 /* ===== Formulários (Pessoas e Transações) ===== */
 form {
   display: flex;
@@ -129,6 +132,8 @@ button[type="button"] { background: #9ca3af; }
 .totais-gerais h2 { color: white; margin: 0 0 6px; }
 
 .totais-gerais p { font-size: 16px; margin: 0; white-space: nowrap; }
+
+.saldo-negativo { color: var(--danger); font-weight: 700; }
 
 /* ===== Grade de cards de Pessoas (2 por linha) ===== */
 .grid-pessoas {

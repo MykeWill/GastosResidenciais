@@ -21,7 +21,9 @@ export default function PessoaCard({ pessoa }: PessoaCardProps) {
 
       <p>Receitas: R$ {pessoa.totalReceitas.toFixed(2)}</p>
       <p>Despesas: R$ {pessoa.totalDespesas.toFixed(2)}</p>
-      <p>Saldo: R$ {pessoa.saldo.toFixed(2)}</p>
+      <p className={pessoa.saldo < 0 ? "saldo-negativo" : ""}>
+         Saldo: R$ {pessoa.saldo.toFixed(2)}
+      </p>
 
       {/* Barra de progresso representando o saldo sobre as receitas */}
       <div className="barra-progresso">
